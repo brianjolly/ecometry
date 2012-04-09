@@ -54,35 +54,30 @@ class Ecometry
     value
   end
 
-  def format_factory format_code
-    #"9(29)v9(32)".match /^(.)\((\d+)\).+\((\d+)\)/
-    #"X(9)".match /(.)\((\d)\)/
-    
-    format = {}
-    md = format_code.match /^(.)\((\d+)\).+\((\d+)\)/
-    if md
-      type = md[1]
-      dig_width = md[2].to_i
-      decimal_width = md[3].to_i
-      format[:width] = dig_width
-      format[:justified] = :right
-      format[:filler] = 0
-    else
-      md = format_code.match /(.)\((\d)\)/
-      if md
-        type = md[1]
-        width = md[2].to_i
 
-        format[:width] = width
-        if type == 'X'
-          format[:justified] = :left
-          format[:filler] = ' '
-        elsif type == '9'
-          format[:justified] = :right
-          format[:filler] = '0'
-        end
-      end
+  # Known formats
+  # X(n), 9(n), 9(4)v9(2), 9(4)v99
+  def format_factory format_code
+    format = {}
+
+    widths = format_code.scan /\((\d+)\)/
+    width = widths.flatten.inject(0){ |sum,x| sum.to_i + x.to_i }
+
+    extra_width = !!(format_code.match /v99/ )
+    if extra_width; width += 1 end
+
+    format[:width] = width
+
+    is_numeric = !!(format_code.match /^9/ )
+
+    if is_numeric
+      format[:justified] = :right
+      format[:filler] = '0'
+    else
+      format[:justified] = :left
+      format[:filler] = ' '
     end
+
     format
   end
 
