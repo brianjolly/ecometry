@@ -1,3 +1,5 @@
+require_relative 'layout'
+
 class Ecometry
   def to_tapemacs fields
     fields.collect do |field|
@@ -34,7 +36,7 @@ class Ecometry
   def get_format_for field
     key = field[0]
     if key && @layout[key]
-      @layout[key][:format]
+      format_factory @layout[key][:format]
     else
       raise "Format not found for #{key}"
     end
@@ -52,85 +54,39 @@ class Ecometry
     value
   end
 
+  def format_factory format_code
+    #"9(29)v9(32)".match /^(.)\((\d+)\).+\((\d+)\)/
+    #"X(9)".match /(.)\((\d)\)/
+    
+    format = {}
+    md = format_code.match /^(.)\((\d+)\).+\((\d+)\)/
+    if md
+      type = md[1]
+      dig_width = md[2].to_i
+      decimal_width = md[3].to_i
+      format[:width] = dig_width
+      format[:justified] = :right
+      format[:filler] = 0
+    else
+      md = format_code.match /(.)\((\d)\)/
+      if md
+        type = md[1]
+        width = md[2].to_i
+
+        format[:width] = width
+        if type == 'X'
+          format[:justified] = :left
+          format[:filler] = ' '
+        elsif type == '9'
+          format[:justified] = :right
+          format[:filler] = '0'
+        end
+      end
+    end
+    format
+  end
+
   def initialize
-    @layout = {
-      :tf00_record_type => {
-        :description => '',
-        :format => {
-          :format => 'X(2)',
-          :width => 2,
-          :justified => :left,
-          :filler => ' '
-        },
-        :position => (1..2),
-        :required => true,
-        :require_at_least_one => false
-      },
-
-      :tf00_batch_date => {
-        :description => '',
-        :format => {
-          :format => '9(6)',
-          :width => 6,
-          :justified => :right,
-          :filler => '0'
-        },
-        :position => (3..8),
-        :required => true,
-        :require_at_least_one => false
-      },
-
-      :tf00_batch_number => {
-        :description => '',
-        :format => {
-          :format => '9(8)',
-          :width => 8,
-          :justified => :right,
-          :filler => '0'
-        },
-        :position => (9..16),
-        :required => false,
-        :require_at_least_one => false
-      },
-
-      :tf00_record_count => {
-        :description => '',
-        :format => {
-          :format => '9(8)',
-          :width => 8,
-          :justified => :right,
-          :filler => '0'
-        },
-        :position => (17..24),
-        :required => true,
-        :require_at_least_one => false
-      },
-
-      :tf00_club_order_type => {
-        :description => '',
-        :format => {
-          :format => 'X(1)',
-          :width => 1,
-          :justified => :left,
-          :filler => ' '
-        },
-        :position => (25..25),
-        :required => false,
-        :require_at_least_one => false
-      },
-
-      :tf00_filer => {
-        :description => 'Spaces',
-        :format => {
-          :format => 'X(295)',
-          :width => 295,
-          :justified => :left,
-          :filler => ' '
-        },
-        :position => (26..320),
-        :required => false,
-        :require_at_least_one => false
-      }
-    }
+    load_layout
   end
 end

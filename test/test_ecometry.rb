@@ -5,6 +5,12 @@ require 'minitest/autorun'
 
 require_relative '../lib/ecometry'
 
+#
+# NOTE 
+# contain sub fields
+# tf17_coupon_info, tf18_gift_cert_info
+#
+
 describe Ecometry do
   before do
     @ecometry = Ecometry.new
@@ -40,7 +46,31 @@ describe Ecometry do
     }
 
     result = @ecometry.insert batch_header, @record
-    result.must_equal "00      00000002                                                                                                                                                                                                                                                                                                                "
+    result.must_equal "000409121234567800000005?                                                                                                                                                                                                                                                                                                       "
+  end
 
+  it "converts Record Type 10" do
+    batch_header = {
+      :tf10_rec_type => '10',
+      :tf10_order_no => '2030919',
+      :tf10_source_offer => '188732',
+      :tf10_mail_date => '03/21/11',
+      :tf10_pay_method => 'MC',
+      :tf10_fname => 'THOMAS',
+      :tf10_lname => 'HOLTZ',
+      :tf10_street => '17130 RIDGE CANYON DR.',
+      :tf10_city => 'RIVERSIDE',
+      :tf10_state => 'CA',
+      :tf10_zip_code => '92506',
+      :tf10_day_phone => '9517800471'
+    }
+
+    puts @record.length
+
+    result = @ecometry.insert batch_header, @record
+
+    puts @record.length
+    puts result.length
+    result.must_equal "10 2030919188732          03/21/11MCTHOMAS           HOLTZ                                                                                                       17130 RIDGE CANYON DR.        RIVERSIDE                     CA92506             9517800471                                                                    "
   end
 end
