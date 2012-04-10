@@ -8,15 +8,17 @@ class Ecometry
   end
 
   def insert fields, record
+    result = String.new(record)
+
     fields.each do |field|
       position = get_position_for field
       position_start = position.min
       formatted_field = format field
 
-      record.slice! position
-      record.insert position_start, formatted_field
+      result.slice! position
+      result.insert position_start, formatted_field
     end
-    record
+    result
   end
 
   def position_length_of position
@@ -45,6 +47,11 @@ class Ecometry
   def format field
     value = field[1]
     format = get_format_for field
+
+    if value.length > format[:width] 
+      raise "The value #{value} is longer than it's format allows"
+    end
+
     case format[:justified]
     when :right
       value = value.rjust format[:width], format[:filler]

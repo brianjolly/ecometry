@@ -34,8 +34,8 @@ describe Ecometry do
     end
 
     it "understands 9(n)v99" do
-      format = @ecometry.format_factory "9(4)v99"
-      format.must_equal( { :justified => :right, :filler => '0', :width => 5 })
+      format = @ecometry.format_factory "9(5)v99"
+      format.must_equal( { :justified => :right, :filler => '0', :width => 6 })
     end
   end
 
@@ -72,7 +72,7 @@ describe Ecometry do
   end
 
   it "converts Record Type 10" do
-    batch_header = {
+    fields = {
       :tf10_rec_type => '10',
       :tf10_order_no => '2030919',
       :tf10_source_offer => '188732',
@@ -87,9 +87,57 @@ describe Ecometry do
       :tf10_day_phone => '9517800471'
     }
 
+    result = @ecometry.insert fields, @record
 
-    result = @ecometry.insert batch_header, @record
+    result.must_equal "10 2030919188732          03/21/11MCTHOMAS           HOLTZ                                                                                                       17130 RIDGE CANYON DR.        RIVERSIDE                     CA92506             9517800471                                                                     "
+  end
 
-    result.must_equal "10 2030919188732          03/21/11MCTHOMAS           HOLTZ                                                                                                       17130 RIDGE CANYON DR.        RIVERSIDE                     CA92506             9517800471                                                                    "
+  it "converts Record Type 15" do
+    fields ={
+      :tf15_rec_type => '15',
+      :tf15_order_no => '2030919',
+      :tf15_purchase_ord => '302030919',
+      :tf15_entered_by => 'JSCBATCH',
+      :tf15_so_flag => 'N',
+      :tf15_order_xref => '302030919'
+    }
+
+    result = @ecometry.insert fields, @record
+
+    result.must_equal "15 2030919                302030919                         JSCBATCH       N                                                                                                                                      302030919                                                                                                     "
+  end
+
+  it "converts Record Type 20" do
+    fields = {
+      :tf20_rec_type => '20',
+      :tf20_order_no => '2030919',
+      :tf20_cc_type => 'VI',
+      :tf20_cc_card_no => '4111111111111111',
+      :tf20_exp_month => '10',
+      :tf20_exp_year => '12'
+    }
+
+    result = @ecometry.insert fields, @record
+
+    result.must_equal "20 2030919VI4111111111111111    1210                                                                                                                                                                                                                                                                                            "
+    
+  end
+
+  it "converts Record Type 40" do
+    fields = {
+      :tf40_rec_type => '40',
+      :tf40_order_no => '2030919',
+      :tf40_quantity => '5',
+      :tf40_item_no => 'GE13',
+      :tf40_tax_amt => '0',
+      :tf40_tax_exem => 'N',
+      :tf40_ship_meth => '24',
+      :tf40_p_h_amt => '0',
+      :tf40_price => '1959',
+      :tf40_overide_price => 'Y'
+    }
+
+    result = @ecometry.insert fields, @record
+    result.must_equal "40 2030919  0005                                                                     GE13                0000000      N240000000000001959                                                                                                                                                                             Y         "
   end
 end

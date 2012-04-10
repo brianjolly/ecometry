@@ -11,9 +11,9 @@ class Ecometry
       },
       :tf00_batch_date => {
         :description => "Creation date of batch (yymmdd)",
-        :format => "9(8)",
-        :length => 8,
-        :position => (3..6),
+        :format => "9(6)",
+        :length => 6,
+        :position => (3..8),
         :required => true,
         :required_once => false
       },
@@ -90,10 +90,10 @@ class Ecometry
         :required_once => false
       },
       :tf10_mail_date => {
-        :description => "Maile date of order (mmddyy) (Default = current date)",
+        :description => "Mail date of order (mmddyy) (Default = current date)",
         :format => "X(8)",
         :length => 8,
-        :position => (27..52),
+        :position => (27..34),
         :required => false,
         :required_once => false
       },
@@ -265,7 +265,7 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :tf10_no_ent => {
+      :tf10_no_rent => {
         :description => "Do not rent",
         :format => "X(1)",
         :length => 1,
@@ -505,14 +505,6 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :tf11_exp_month => {
-        :description => "Credit card expiration month",
-        :format => "X(2)",
-        :length => 2,
-        :position => (304..305),
-        :required => false,
-        :required_once => false
-      },
       :tf11_error_code => {
         :description => "Error code",
         :format => "X(1)",
@@ -685,7 +677,7 @@ class Ecometry
         :description => "Customer number check digit",
         :format => "X(1)",
         :length => 1,
-        :position => (287),
+        :position => (287..287),
         :required => false,
         :required_once => false
       },
@@ -693,7 +685,7 @@ class Ecometry
         :description => "Address replacement flag",
         :format => "X(1)",
         :length => 1,
-        :position => (288),
+        :position => (288..288),
         :required => false,
         :required_once => false
       },
@@ -953,7 +945,7 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :tf15_shop_meth => {
+      :tf15_ship_meth => {
         :description => "Ship method for the order's Buyer. Refer to the Determining the Ship Method for Batch Orders topic in Batch Order Production for a discussion of how this field is used.",
         :format => "X(2)",
         :length => 2,
@@ -1037,7 +1029,7 @@ class Ecometry
         :description => "User hold code",
         :format => "X(1)",
         :length => 1,
-        :position => (247),
+        :position => (247..247),
         :required => false,
         :required_once => false
       },
@@ -1505,7 +1497,7 @@ class Ecometry
         :required => true,
         :required_once => false
       },
-      :tf21_prt_on_pkslip1 => {
+      :tf21_prt_on_pkslp1 => {
         :description => "Print first comment on packing slip",
         :format => "X(1)",
         :length => 1,
@@ -1529,7 +1521,7 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :tf21_prt_on_pkslip2 => {
+      :tf21_prt_on_pkslp2 => {
         :description => "Print second comment on packing slip",
         :format => "X(1)",
         :length => 1,
@@ -1569,7 +1561,7 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :TF21_filler => {
+      :tf21_filler => {
         :description => "Spaces",
         :format => "X(182)",
         :length => 182,
@@ -1754,7 +1746,7 @@ class Ecometry
         :required_once => false
       },
       :tf30_future_fil => {
-        :description => "If TF15-FUTURE-CODE is a date code, this field is blank. If a date is used. TF15-FUTURE-CODE and this field are used together to contain the 8-character date (mm/dd/yy).",
+        :description => "If TF30-FUTURE-CODE is a date code, this field is blank. If a date is used. TF30-FUTURE-CODE and this field are used together to contain the 8-character date (mm/dd/yy).",
         :format => "X(7)",
         :length => 7,
         :position => (275..281),
@@ -1833,7 +1825,7 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :pk31_prt_on_label1 => {
+      :tf31_prt_on_label1 => {
         :description => "Print first comment on shipping label",
         :format => "X(1)",
         :length => 1,
@@ -1865,7 +1857,7 @@ class Ecometry
         :required => false,
         :required_once => false
       },
-      :pk31_prt_on_greet2 => {
+      :tf31_prt_on_greet2 => {
         :description => "Print second comment on warehouse label",
         :format => "X(1)",
         :length => 1,
@@ -1910,7 +1902,7 @@ class Ecometry
         :format => "X(1)",
         :length => 1,
         :position => (3..3),
-        :required => false,
+        :required => true,
         :required_once => false
       },
       :tf33_order_no => {
@@ -1971,7 +1963,7 @@ class Ecometry
       },
       :tf40_quantity => {
         :description => "Line item quantity Blank or 0 = the line item is canceled",
-        :format => "X(4)",
+        :format => "9(4)",
         :length => 4,
         :position => (13..16),
         :required => true,
@@ -2002,9 +1994,9 @@ class Ecometry
         :required_once => false
       },
       :tf40_tax_amt => {
-        :description => "Total tax amount for order (optional) (only used in the first Record Type 40 for each order) Blank = Ecometry calculates the tax amount at Order Entry",
-        :format => "9(5)v99",
-        :length => 6,
+        :description => "Total tax amount for order (optional) (only used in the first Record Type 42 for each order) Blank = Ecometry calculates the tax amount at Order Entry",
+        :format => "9(6)v99",
+        :length => 7,
         :position => (106..112),
         :required => false,
         :required_once => false
@@ -2278,7 +2270,7 @@ class Ecometry
         :format => "X(1)",
         :length => 1,
         :position => (3..3),
-        :required => false,
+        :required => true,
         :required_once => false
       },
       :tf42_order_no => {
@@ -2306,7 +2298,7 @@ class Ecometry
         :required_once => false
       },
       :tf42_tax_exem_no => {
-        :description => "The identification number (optional) becomes an account comment",
+        :description => "Tax identification number (optional) becomes an account comment",
         :format => "X(60)",
         :length => 60,
         :position => (26..85),
@@ -2318,7 +2310,7 @@ class Ecometry
         :format => "X(20)",
         :length => 20,
         :position => (86..105),
-        :required => false,
+        :required => true,
         :required_once => false
       },
       :tf42_tax_amt => {
@@ -2330,14 +2322,14 @@ class Ecometry
         :required_once => false
       },
       :tf42_tax_rate => {
-        :description => "Tax rate assigned to order (only used in the first Record type 42 for each order) Blank or 0 = Ecometry calculates the tax",
-        :format => "9(5)v9(4)",
-        :length => 9,
+        :description => "Tax rate assigned to order. Blank or 0 = Ecometry calculates the tax",
+        :format => "9(2)v9(4)",
+        :length => 6,
         :position => (113..118),
         :required => false,
         :required_once => false
       },
-      :tf41_tax_exem => {
+      :tf42_tax_exem => {
         :description => "Order is tax exempt (Y/N)",
         :format => "X(1)",
         :length => 1,
@@ -2376,7 +2368,7 @@ class Ecometry
         :position => (138..320),
         :required => false,
         :required_once => false
-      }
+      },
     }
   end
 end
