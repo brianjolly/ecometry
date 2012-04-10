@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "ecometry"
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian"]
   s.date = "2012-04-10"
-  s.description = "TODO: longer description of your gem"
+  s.description = "Gem for writing an Ecometry batch file"
   s.email = "brian@brianjolly.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
