@@ -1,9 +1,4 @@
-#require 'helper'
-
-require 'minitest/spec'
-require 'minitest/autorun'
-
-require_relative '../lib/ecometry'
+require 'helper'
 
 #
 # NOTE 

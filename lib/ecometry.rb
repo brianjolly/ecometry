@@ -1,4 +1,4 @@
-require_relative 'layout'
+require 'ecometry/layout'
 
 class Ecometry
   def to_tapemacs fields

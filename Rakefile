@@ -19,7 +19,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/brianjolly/ecometry"
   gem.license = "MIT"
   gem.summary = %Q{Tool for creating Ecometry batch files}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{Tool for creating Ecometry batch files}
   gem.email = "brian@brianjolly.com"
   gem.authors = ["Brian"]
   # dependencies defined in Gemfile
