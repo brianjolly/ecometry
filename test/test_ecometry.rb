@@ -66,7 +66,7 @@ describe Ecometry do
     result.must_equal "000409121234567800000005?                                                                                                                                                                                                                                                                                                       "
   end
 
-  it "converts Record Type 10" do
+  it "converts Record Type 10 (Buyer Information)" do
     fields = {
       :tf10_rec_type => '10',
       :tf10_order_no => '2030919',
@@ -87,7 +87,7 @@ describe Ecometry do
     result.must_equal "10 2030919188732          03/21/11MCTHOMAS           HOLTZ                                                                                                       17130 RIDGE CANYON DR.        RIVERSIDE                     CA92506             9517800471                                                                     "
   end
 
-  it "converts Record Type 15" do
+  it "converts Record Type 15 (Additional Order Information)" do
     fields ={
       :tf15_rec_type => '15',
       :tf15_order_no => '2030919',
@@ -102,7 +102,7 @@ describe Ecometry do
     result.must_equal "15 2030919                302030919                         JSCBATCH       N                                                                                                                                      302030919                                                                                                     "
   end
 
-  it "converts Record Type 20" do
+  it "converts Record Type 20 (Credit Card Information)" do
     fields = {
       :tf20_rec_type => '20',
       :tf20_order_no => '2030919',
@@ -118,7 +118,7 @@ describe Ecometry do
     
   end
 
-  it "converts Record Type 40" do
+  it "converts Record Type 40 (Line-Item Informatiion)" do
     fields = {
       :tf40_rec_type => '40',
       :tf40_order_no => '2030919',
