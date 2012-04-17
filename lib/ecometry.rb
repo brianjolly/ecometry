@@ -1,6 +1,11 @@
 require 'ecometry/layout'
 
 class Ecometry
+
+  def create_blank_record
+    (1..320).map{' '}.join
+  end 
+
   def to_tapemacs fields
     fields.collect do |field|
       format field
