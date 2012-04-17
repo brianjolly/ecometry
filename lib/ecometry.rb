@@ -53,7 +53,8 @@ class Ecometry
   end
 
   def format field
-    value = field[1]
+    key = field[0].to_s
+    value = field[1].to_s
     format = get_format_for field
 
     if value.length > format[:width] 
