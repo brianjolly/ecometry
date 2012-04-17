@@ -8,6 +8,8 @@ source "http://rubygems.org"
 group :development do
   gem "minitest", ">= 0"
   gem "rdoc", "~> 3.12"
-  gem "bundler"
+  gem "bundler", "~> 1.0.21"
   gem "jeweler", "~> 1.8.3"
+  gem "rake", "0.8.7"
+
 end
