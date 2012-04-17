@@ -58,7 +58,7 @@ class Ecometry
     format = get_format_for field
 
     if value.length > format[:width] 
-      raise "The value #{value} is longer than it's format allows"
+      raise "The format for #{key} only allows for a length of #{format[:width]} bytes. But '#{value}' is #{value.length} bytes"
     end
 
     case format[:justified]
