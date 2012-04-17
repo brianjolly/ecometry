@@ -2,6 +2,9 @@ require 'ecometry/layout'
 
 class Ecometry
 
+  Time::DATE_FORMATS[:year_month_day] = "%y%m%d"
+  Time::DATE_FORMATS[:month_day_year_with_slash] = "%m/%d/%y"
+
   def create_blank_record
     (1..320).map{' '}.join
   end 
