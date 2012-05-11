@@ -1,5 +1,9 @@
-require 'helper'
+#require 'helper'
 
+require 'minitest/spec'
+require 'minitest/autorun'
+
+require_relative '../lib/ecometry'
 #
 # NOTE 
 # contain sub fields
@@ -15,22 +19,22 @@ describe Ecometry do
   describe "format serializer" do
     it "understands X(n)" do
       format = @ecometry.format_factory "X(4)"
-      format.must_equal( { :justified => :left, :filler => ' ', :width => 4 })
+      format.must_equal( { :justified => :left, :filler => ' ', :width => 4, :numeric => false })
     end
 
     it "understands 9(n)" do
       format = @ecometry.format_factory "9(4)"
-      format.must_equal( { :justified => :right, :filler => '0', :width => 4 })
+      format.must_equal( { :justified => :right, :filler => '0', :width => 4, :numeric => true })
     end
 
     it "understands 9(n)v9(n)" do
       format = @ecometry.format_factory "9(4)v9(2)"
-      format.must_equal( { :justified => :right, :filler => '0', :width => 6 })
+      format.must_equal( { :justified => :right, :filler => '0', :width => 6, :numeric => true })
     end
 
     it "understands 9(n)v99" do
       format = @ecometry.format_factory "9(5)v99"
-      format.must_equal( { :justified => :right, :filler => '0', :width => 6 })
+      format.must_equal( { :justified => :right, :filler => '0', :width => 6, :numeric => true })
     end
   end
 
@@ -73,10 +77,10 @@ describe Ecometry do
       :tf10_source_offer => '188732',
       :tf10_mail_date => '03/21/11',
       :tf10_pay_method => 'MC',
-      :tf10_fname => 'THOMAS',
-      :tf10_lname => 'HOLTZ',
-      :tf10_street => '17130 RIDGE CANYON DR.',
-      :tf10_city => 'RIVERSIDE',
+      :tf10_fname => 'Thomas',
+      :tf10_lname => 'Holtz',
+      :tf10_street => '17130 Ridge Canyon DR.',
+      :tf10_city => 'Riverside',
       :tf10_state => 'CA',
       :tf10_zip_code => '92506',
       :tf10_day_phone => '9517800471'
@@ -128,7 +132,7 @@ describe Ecometry do
       :tf40_tax_exem => 'N',
       :tf40_ship_meth => '24',
       :tf40_p_h_amt => '0',
-      :tf40_price => '1959',
+      :tf40_price => '19.59',
       :tf40_overide_price => 'Y'
     }
 

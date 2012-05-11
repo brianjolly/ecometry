@@ -1379,7 +1379,7 @@ class Ecometry
       },
       :tf20_exp_month => {
         :description => "Credit card expiration month",
-        :format => "X(2)",
+        :format => "d(2)",
         :length => 2,
         :position => (35..36),
         :required => true,

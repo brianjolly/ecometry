@@ -2,8 +2,8 @@ require 'ecometry/layout'
 
 class Ecometry
 
-  Time::DATE_FORMATS[:year_month_day] = "%y%m%d"
-  Time::DATE_FORMATS[:month_day_year_with_slash] = "%m/%d/%y"
+  #Time::DATE_FORMATS[:year_month_day] = "%y%m%d"
+  #Time::DATE_FORMATS[:month_day_year_with_slash] = "%m/%d/%y"
 
   def create_blank_record
     (1..320).map{' '}.join
@@ -57,6 +57,12 @@ class Ecometry
     value = field[1].to_s
     format = get_format_for field
 
+    if format[:numeric]
+      value = value.delete('.')
+    else
+      value = value.upcase
+    end
+
     if value.length > format[:width] 
       raise "The format for #{key} only allows for a length of #{format[:width]} bytes. But '#{value}' is #{value.length} bytes"
     end
@@ -67,6 +73,7 @@ class Ecometry
     when :left
       value = value.ljust format[:width], format[:filler]
     end
+
     value
   end
 
@@ -87,9 +94,11 @@ class Ecometry
     is_numeric = !!(format_code.match /^9/ )
 
     if is_numeric
+      format[:numeric] = true
       format[:justified] = :right
       format[:filler] = '0'
     else
+      format[:numeric] = false
       format[:justified] = :left
       format[:filler] = ' '
     end
