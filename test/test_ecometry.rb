@@ -112,13 +112,13 @@ describe Ecometry do
       :tf20_order_no => '2030919',
       :tf20_cc_type => 'VI',
       :tf20_cc_card_no => '4111111111111111',
-      :tf20_exp_month => '10',
-      :tf20_exp_year => '12'
+      :tf20_exp_year => '12',
+      :tf20_exp_month => '1'
     }
 
     result = @ecometry.insert fields, @record
 
-    result.must_equal "20 2030919VI4111111111111111    1210                                                                                                                                                                                                                                                                                            "
+    result.must_equal "20 2030919VI4111111111111111    1201                                                                                                                                                                                                                                                                                            "
     
   end
 

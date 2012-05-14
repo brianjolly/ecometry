@@ -491,7 +491,7 @@ class Ecometry
       },
       :tf11_exp_year => {
         :description => "Credit card expiration year",
-        :format => "X(2)",
+        :format => "9(2)",
         :length => 2,
         :position => (302..303),
         :required => false,
@@ -499,7 +499,7 @@ class Ecometry
       },
       :tf11_exp_month => {
         :description => "Credit card expiration month",
-        :format => "X(2)",
+        :format => "9(2)",
         :length => 2,
         :position => (304..305),
         :required => false,
@@ -1371,7 +1371,7 @@ class Ecometry
       },
       :tf20_exp_year => {
         :description => "Credit card expiration year",
-        :format => "X(2)",
+        :format => "9(2)",
         :length => 2,
         :position => (33..34),
         :required => true,
@@ -1379,7 +1379,7 @@ class Ecometry
       },
       :tf20_exp_month => {
         :description => "Credit card expiration month",
-        :format => "d(2)",
+        :format => "9(2)",
         :length => 2,
         :position => (35..36),
         :required => true,
